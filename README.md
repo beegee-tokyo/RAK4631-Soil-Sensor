@@ -1,6 +1,7 @@
 # WisBlock Soil Moisture Sensor
 | <img src="./assets/RAK-Whirls.png" alt="Modules" width="150"> | <img src="./assets/rakstar.jpg" alt="RAKstar" width="100"> |    
 | :-: | :-: |     
+
 This example is for a soil moisture sensor based on the [WisBlock RAK4631 Core module](https://docs.rakwireless.com/Product-Categories/WisBlock/) and the [Catnip I2C soil moisture sensor](https://www.tindie.com/products/miceuz/i2c-soil-moisture-sensor/).
 
 ----
