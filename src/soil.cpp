@@ -45,6 +45,10 @@ void read_soil(void)
 	float avgTemp;
 	uint16_t avgHumid;
 
+	// Wake up the sensor
+	Wire.beginTransmission(0x20);
+	int t = Wire.endTransmission();
+
 	// Get the sensor values
 	while (sensor.isBusy())
 	{

@@ -18,7 +18,7 @@ SemaphoreHandle_t g_task_sem = NULL;
 SoftwareTimer g_task_wakeup_timer;
 
 /** Flag for the event type */
-uint16_t g_task_event_type = NO_EVENT;
+volatile uint16_t g_task_event_type = NO_EVENT;
 
 /** Flag if BLE should be enabled */
 bool enable_ble = false;
@@ -104,6 +104,9 @@ void setup()
 		digitalWrite(LED_CONN, LOW);
 	}
 
+	// Take the semaphore so the loop will go to sleep until an event happens
+	xSemaphoreTake(g_task_sem, 10);
+
 	// Check if auto join is enabled
 	if (g_lorawan_settings.auto_join)
 	{
@@ -127,6 +130,10 @@ void setup()
 	}
 	else
 	{
+		// Put radio into sleep mode
+		lora_rak4630_init();
+		Radio.Sleep();
+
 		MYLOG("MAIN", "Auto join is disabled, waiting for connect command");
 		delay(100);
 	}
@@ -144,8 +151,6 @@ void setup()
 		}
 	}
 
-	// Take the semaphore so the loop will go to sleep until an event happens
-	xSemaphoreTake(g_task_sem, 10);
 }
 
 /**

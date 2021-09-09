@@ -37,7 +37,7 @@
 // Main loop stuff
 void periodic_wakeup(TimerHandle_t unused);
 extern SemaphoreHandle_t g_task_sem;
-extern uint16_t g_task_event_type;
+extern volatile uint16_t g_task_event_type;
 extern SoftwareTimer g_task_wakeup_timer;
 
 /** Wake up events, more events can be defined in app.h */
@@ -67,11 +67,7 @@ extern char ble_dev_name[];
 extern bool enable_ble;
 
 // LoRa
-#ifdef _VARIANT_ISP4520_
-#include <LoRaWan-ISP4520.h>
-#else
-#include <LoRaWan-RAK4630.h>
-#endif
+#include <LoRaWan-Arduino.h>
 
 int8_t init_lora(void);
 lmh_error_status send_lora_packet(uint8_t *data, uint8_t size);
